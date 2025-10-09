@@ -23,7 +23,7 @@ public class VehicleDatabase {
                 Arrays.asList("Automático", "4 puertas", "Híbrido", "Cámara trasera"),
                 "Sedán confiable y eficiente en combustible con tecnología híbrida avanzada.",
                 camrySpecs,
-                "https://toyota.scene7.com/is/image/toyota/CAM_MY23_0016_V002?fmt=jpg&fit=crop&qlt=90&wid=1200&hei=600"
+                "https://fuelcarmagazine.com/wp-content/uploads/2022/05/Toyota-Camry-2023.jpg"
         ));
 
         // Honda CR-V
@@ -37,7 +37,7 @@ public class VehicleDatabase {
                 Arrays.asList("AWD", "SUV", "Turbo", "Honda Sensing"),
                 "SUV compacta perfecta para familias con excelente espacio y seguridad.",
                 crvSpecs,
-                "https://www.honda.ca/-/media/Brands/Honda/VehiclePages/CR-V/2023/Overview/CRV23-hero_desktop.jpg"
+                "https://revistaelconocedor.net/wp-content/uploads/2023/03/honda-crv-2023-1.jpg"
         ));
 
         // BMW X3
@@ -51,7 +51,7 @@ public class VehicleDatabase {
                 Arrays.asList("xDrive", "Cuero", "Navegación", "Techo panorámico"),
                 "SUV de lujo con rendimiento deportivo y tecnología premium.",
                 x3Specs,
-                "https://www.bmwusa.com/content/dam/bmwusa/XModels/X3/2023/Overview/BMW-MY23-X3-Overview-01.jpg"
+                "https://images.topgear.com.ph/topgear/images/2022/08/15/bmw-x3-2023-ph-launch-02-1660558853.jpg"
         ));
 
         // Tesla Model 3
@@ -65,7 +65,7 @@ public class VehicleDatabase {
                 Arrays.asList("Eléctrico", "Autopilot", "Supercargador", "OTA Updates"),
                 "Sedán eléctrico con tecnología autónoma y cero emisiones.",
                 model3Specs,
-                "https://tesla-cdn.thron.com/delivery/public/image/tesla/6c2b04c9-7f4f-40b0-86f8-1fc62e3ed95f/bvlatuR/std/1200x628/lhd-model-3-social"
+                "https://fuelcarmagazine.com/wp-content/uploads/2023/09/Tesla-Model-3-2024-actualizacion.jpg"
         ));
 
         // Ford F-150
@@ -79,7 +79,7 @@ public class VehicleDatabase {
                 Arrays.asList("4x4", "Pickup", "Remolque", "SYNC 4"),
                 "La pickup más vendida de América con capacidad de trabajo superior.",
                 f150Specs,
-                "https://www.ford.com/cmslibs/content/dam/brand_ford/en_us/brand/resources/general/newvehicle/highlights/F150_22MY_LariatSport.jpg"
+                "https://loscoches.com/wp-content/uploads/2020/01/gran-tecnologia-ford-f150-segura.jpg"
         ));
 
         // Audi A4
@@ -93,7 +93,7 @@ public class VehicleDatabase {
                 Arrays.asList("Quattro", "Virtual Cockpit", "Bang & Olufsen", "Asientos deportivos"),
                 "Sedán de lujo alemán con diseño elegante y tecnología avanzada.",
                 a4Specs,
-                "https://www.audi.com/content/dam/ci/en/models/a4/a4-sedan/my-2023/1920x1080-desktop-stage/1920x1080-desktop-stage-a4.jpg"
+                "https://hips.hearstapps.com/hmg-prod/images/medium-6802-audia4-1654633069.jpg?crop=1.00xw:0.846xh;0,0.154xh&resize=1200:*"
         ));
     }
 
