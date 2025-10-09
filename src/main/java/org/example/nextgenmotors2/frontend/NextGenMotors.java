@@ -2,6 +2,7 @@ package org.example.nextgenmotors2.frontend;
 
 import org.example.nextgenmotors2.backend.Vehicle;
 import org.example.nextgenmotors2.backend.VehicleDatabase;
+import org.example.nextgenmotors2.backend.ReservationType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -356,11 +357,24 @@ public class NextGenMotors extends JFrame {
             Vehicle vehicle = database.getVehicleById(vehicleId);
 
             if (vehicle != null) {
-                JOptionPane.showMessageDialog(this,
-                        "¡Excelente elección! Te contactaremos pronto para agendar tu prueba de manejo del " +
-                                vehicle.getBrand() + " " + vehicle.getModel() + ".",
-                        "Prueba de Manejo",
-                        JOptionPane.INFORMATION_MESSAGE);
+                ReservationDialog dialog = new ReservationDialog(this, vehicle, ReservationType.TEST_DRIVE);
+                dialog.setVisible(true);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error al procesar la solicitud.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Método para reservar vehículo (puede ser usado en el futuro)
+    private void reserveVehicle(ActionEvent e) {
+        try {
+            int vehicleId = Integer.parseInt(e.getActionCommand());
+            Vehicle vehicle = database.getVehicleById(vehicleId);
+
+            if (vehicle != null) {
+                ReservationDialog dialog = new ReservationDialog(this, vehicle, ReservationType.RESERVATION);
+                dialog.setVisible(true);
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error al procesar la solicitud.",

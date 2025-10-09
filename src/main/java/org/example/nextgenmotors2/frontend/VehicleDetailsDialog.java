@@ -1,6 +1,7 @@
 package org.example.nextgenmotors2.frontend;
 
 import org.example.nextgenmotors2.backend.Vehicle;
+import org.example.nextgenmotors2.backend.ReservationType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,18 +24,22 @@ public class VehicleDetailsDialog extends JDialog {
         setLocationRelativeTo(getParent());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+        // Panel principal
         JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPanel.setBackground(Color.WHITE);
 
+        // Título
         JLabel titleLabel = new JLabel(vehicle.getBrand() + " " + vehicle.getModel() + " " + vehicle.getYear());
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
 
+        // Panel central con información
         JPanel centerPanel = new JPanel(new GridLayout(1, 2, 20, 0));
         centerPanel.setBackground(Color.WHITE);
 
+        // Panel izquierdo - imagen
         JPanel leftPanel = new JPanel(new BorderLayout());
         leftPanel.setBackground(new Color(230, 230, 230));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -45,10 +50,12 @@ public class VehicleDetailsDialog extends JDialog {
 
         centerPanel.add(leftPanel);
 
+        // Panel derecho - información
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBackground(Color.WHITE);
 
+        // Precio
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
         JLabel priceLabel = new JLabel(formatter.format(vehicle.getPrice()));
         priceLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -58,6 +65,7 @@ public class VehicleDetailsDialog extends JDialog {
 
         rightPanel.add(Box.createVerticalStrut(15));
 
+        // Descripción
         JTextArea descArea = new JTextArea(vehicle.getDescription());
         descArea.setWrapStyleWord(true);
         descArea.setLineWrap(true);
@@ -69,6 +77,7 @@ public class VehicleDetailsDialog extends JDialog {
 
         rightPanel.add(Box.createVerticalStrut(20));
 
+        // Especificaciones
         JLabel specsTitle = new JLabel("Especificaciones:");
         specsTitle.setFont(new Font("Arial", Font.BOLD, 16));
         specsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -97,6 +106,7 @@ public class VehicleDetailsDialog extends JDialog {
 
         rightPanel.add(Box.createVerticalStrut(15));
 
+        // Características
         JLabel featuresTitle = new JLabel("Características:");
         featuresTitle.setFont(new Font("Arial", Font.BOLD, 16));
         featuresTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -123,6 +133,7 @@ public class VehicleDetailsDialog extends JDialog {
         centerPanel.add(rightPanel);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
+        // Panel de botones
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         buttonPanel.setBackground(Color.WHITE);
 
@@ -133,33 +144,38 @@ public class VehicleDetailsDialog extends JDialog {
         testDriveButton.setBorderPainted(false);
         testDriveButton.setPreferredSize(new Dimension(200, 40));
         testDriveButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this,
-                    "¡Perfecto! Hemos registrado tu interés en probar el " +
-                            vehicle.getBrand() + " " + vehicle.getModel() +
-                            ". Un asesor se comunicará contigo en las próximas 24 horas.",
-                    "Prueba de Manejo Agendada",
-                    JOptionPane.INFORMATION_MESSAGE);
+            // Usar el nuevo diálogo de reserva
+            ReservationDialog reservationDialog = new ReservationDialog(
+                    (JFrame) this.getParent(), vehicle, ReservationType.TEST_DRIVE);
+            reservationDialog.setVisible(true);
             dispose();
         });
 
-        JButton buyButton = new JButton("Comprar Ahora");
+        JButton buyButton = new JButton("Reservar para Compra");
         buyButton.setBackground(new Color(59, 130, 246));
         buyButton.setForeground(Color.WHITE);
         buyButton.setFocusPainted(false);
         buyButton.setBorderPainted(false);
-        buyButton.setPreferredSize(new Dimension(150, 40));
+        buyButton.setPreferredSize(new Dimension(180, 40));
         buyButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this,
-                    "¡Felicitaciones por tu decisión! El " + vehicle.getBrand() + " " +
-                            vehicle.getModel() + " por " + formatter.format(vehicle.getPrice()) +
-                            " es una excelente elección. Un especialista en ventas te contactará.",
-                    "Compra Iniciada",
-                    JOptionPane.INFORMATION_MESSAGE);
+            // Usar el nuevo diálogo de reserva para compra
+            ReservationDialog reservationDialog = new ReservationDialog(
+                    (JFrame) this.getParent(), vehicle, ReservationType.RESERVATION);
+            reservationDialog.setVisible(true);
             dispose();
         });
 
+        JButton closeButton = new JButton("Cerrar");
+        closeButton.setBackground(new Color(107, 114, 128));
+        closeButton.setForeground(Color.WHITE);
+        closeButton.setFocusPainted(false);
+        closeButton.setBorderPainted(false);
+        closeButton.setPreferredSize(new Dimension(100, 40));
+        closeButton.addActionListener(e -> dispose());
+
         buttonPanel.add(testDriveButton);
         buttonPanel.add(buyButton);
+        buttonPanel.add(closeButton);
 
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
         add(mainPanel);

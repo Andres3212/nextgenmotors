@@ -1,7 +1,10 @@
 package org.example.nextgenmotors2.backend;
 
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
+@Component
 public class VehicleDatabase {
     private List<Vehicle> vehicles;
 

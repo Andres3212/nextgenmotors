@@ -27,6 +27,7 @@ public class VehiclePanel extends JPanel {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(300, 400));
 
+        // Panel superior con imagen
         JPanel imagePanel = new JPanel(new BorderLayout());
         imagePanel.setBackground(new Color(230, 230, 230));
         imagePanel.setPreferredSize(new Dimension(300, 150));
@@ -50,6 +51,7 @@ public class VehiclePanel extends JPanel {
 
         imagePanel.add(imageLabel, BorderLayout.CENTER);
 
+        // Precio
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
         JLabel priceLabel = new JLabel(formatter.format(vehicle.getPrice()));
         priceLabel.setFont(new Font("Arial", Font.BOLD, 12));
@@ -66,6 +68,7 @@ public class VehiclePanel extends JPanel {
 
         add(imagePanel, BorderLayout.NORTH);
 
+        // Panel info
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
