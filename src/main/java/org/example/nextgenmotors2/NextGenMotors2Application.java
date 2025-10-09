@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.swing.*;
-
+//Hola
 @SpringBootApplication
 public class NextGenMotors2Application implements ApplicationRunner {
 
