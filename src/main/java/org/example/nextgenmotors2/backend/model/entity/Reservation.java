@@ -1,4 +1,7 @@
-package org.example.nextgenmotors2.backend;
+package org.example.nextgenmotors2.backend.model.entity;
+
+import org.example.nextgenmotors2.backend.model.enu.ReservationStatus;
+import org.example.nextgenmotors2.backend.model.enu.ReservationType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

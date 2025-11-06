@@ -1,17 +1,20 @@
-package org.example.nextgenmotors2.backend;
+package org.example.nextgenmotors2.backend.controller;
 
+import org.example.nextgenmotors2.backend.model.entity.Reservation;
+import org.example.nextgenmotors2.backend.model.enu.ReservationStatus;
+import org.example.nextgenmotors2.backend.service.traditional.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+        import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reservations")
-@CrossOrigin(origins = "*") // Para permitir requests desde el frontend Swing
+@CrossOrigin(origins = "*")
 public class ReservationController {
 
     @Autowired
@@ -48,7 +51,7 @@ public class ReservationController {
         return reservationService.getReservationsByUser(email);
     }
 
-    // Verificar disponibilidad
+    // Verificar disponibilidad - CORREGIDO
     @GetMapping("/availability")
     public ResponseEntity<Boolean> checkAvailability(
             @RequestParam Integer vehicleId,

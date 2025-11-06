@@ -1,15 +1,22 @@
-package org.example.nextgenmotors2.backend;
+package org.example.nextgenmotors2.backend.service.traditional;
 
+import org.example.nextgenmotors2.backend.model.entity.Vehicle;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class VehicleDatabase {
     private List<Vehicle> vehicles;
+    private final Map<Integer, Vehicle> vehicleCache = new ConcurrentHashMap<>();
+    private final Map<String, List<Vehicle>> searchCache = new ConcurrentHashMap<>();
+    private long lastCacheUpdate = 0;
+    private static final long CACHE_DURATION = 300000; // 5 minutos
 
     public VehicleDatabase() {
-        initializeVehicles();
+        initializeVehicles(); // ✅ ESTE MÉTODO SÍ EXISTE
+        preloadCache();
     }
 
     private void initializeVehicles() {
@@ -100,29 +107,48 @@ public class VehicleDatabase {
         ));
     }
 
+    private void preloadCache() {
+        for (Vehicle vehicle : vehicles) {
+            vehicleCache.put(vehicle.getId(), vehicle);
+        }
+        lastCacheUpdate = System.currentTimeMillis();
+    }
+
     public List<Vehicle> getAllVehicles() {
         return new ArrayList<>(vehicles);
     }
 
     public Vehicle getVehicleById(int id) {
-        return vehicles.stream()
-                .filter(v -> v.getId() == id)
-                .findFirst()
-                .orElse(null);
+        // Cache extremadamente rápido
+        return vehicleCache.get(id);
     }
 
     public List<Vehicle> searchVehicles(String searchTerm, String priceRange) {
+        String cacheKey = (searchTerm == null ? "" : searchTerm) + "|" + (priceRange == null ? "" : priceRange);
+
+        // Verificar cache
+        if (System.currentTimeMillis() - lastCacheUpdate < CACHE_DURATION) {
+            List<Vehicle> cached = searchCache.get(cacheKey);
+            if (cached != null) {
+                return new ArrayList<>(cached);
+            }
+        } else {
+            // Limpiar cache si ha pasado mucho tiempo
+            searchCache.clear();
+            lastCacheUpdate = System.currentTimeMillis();
+        }
+
         List<Vehicle> filtered = new ArrayList<>();
 
         for (Vehicle vehicle : vehicles) {
-            boolean matchesSearch = searchTerm.isEmpty() ||
+            boolean matchesSearch = searchTerm == null || searchTerm.isEmpty() ||
                     vehicle.getBrand().toLowerCase().contains(searchTerm.toLowerCase()) ||
                     vehicle.getModel().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                    vehicle.getFeatures().stream()
-                            .anyMatch(f -> f.toLowerCase().contains(searchTerm.toLowerCase()));
+                    (vehicle.getFeatures() != null && vehicle.getFeatures().stream()
+                            .anyMatch(f -> f.toLowerCase().contains(searchTerm.toLowerCase())));
 
             boolean matchesPrice = true;
-            if (!priceRange.isEmpty() && !priceRange.equals("Todos los precios")) {
+            if (priceRange != null && !priceRange.isEmpty() && !priceRange.equals("Todos los precios")) {
                 matchesPrice = checkPriceRange(vehicle.getPrice(), priceRange);
             }
 
@@ -131,21 +157,18 @@ public class VehicleDatabase {
             }
         }
 
+        // Guardar en cache
+        searchCache.put(cacheKey, new ArrayList<>(filtered));
         return filtered;
     }
 
     private boolean checkPriceRange(double price, String range) {
         switch (range) {
-            case "$0 - $20,000":
-                return price <= 20000;
-            case "$20,000 - $40,000":
-                return price >= 20000 && price <= 40000;
-            case "$40,000 - $60,000":
-                return price >= 40000 && price <= 60000;
-            case "$60,000+":
-                return price >= 60000;
-            default:
-                return true;
+            case "$0 - $20,000": return price <= 20000;
+            case "$20,000 - $40,000": return price >= 20000 && price <= 40000;
+            case "$40,000 - $60,000": return price >= 40000 && price <= 60000;
+            case "$60,000+": return price >= 60000;
+            default: return true;
         }
     }
 }

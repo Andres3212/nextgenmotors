@@ -1,7 +1,7 @@
-package org.example.nextgenmotors2.frontend;
+package org.example.nextgenmotors2.frontend.dialog;
 
-import org.example.nextgenmotors2.backend.Vehicle;
-import org.example.nextgenmotors2.backend.ReservationType;
+import org.example.nextgenmotors2.backend.model.entity.Vehicle;
+import org.example.nextgenmotors2.backend.model.enu.ReservationType;
 
 import javax.swing.*;
 import java.awt.*;

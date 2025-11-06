@@ -1,4 +1,4 @@
-package org.example.nextgenmotors2.backend;
+package org.example.nextgenmotors2.backend.model.enu;
 
 public enum ReservationStatus {
     PENDING,      // Pendiente

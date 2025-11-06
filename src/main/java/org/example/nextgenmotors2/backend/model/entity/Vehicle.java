@@ -1,4 +1,4 @@
-package org.example.nextgenmotors2.backend;
+package org.example.nextgenmotors2.backend.model.entity;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +14,7 @@ public class Vehicle {
     private Map<String, String> specs;
     private String imagenUrl;
 
+    // Constructor completo
     public Vehicle(int id, String brand, String model, int year, double price,
                    List<String> features, String description,
                    Map<String, String> specs, String imagenUrl) {
@@ -26,6 +27,10 @@ public class Vehicle {
         this.description = description;
         this.specs = specs;
         this.imagenUrl = imagenUrl;
+    }
+
+    // Constructor vacío para JPA
+    public Vehicle() {
     }
 
     // Getters

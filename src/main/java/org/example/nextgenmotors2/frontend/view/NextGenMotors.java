@@ -1,8 +1,10 @@
-package org.example.nextgenmotors2.frontend;
+package org.example.nextgenmotors2.frontend.view;
 
-import org.example.nextgenmotors2.backend.Vehicle;
-import org.example.nextgenmotors2.backend.VehicleDatabase;
-import org.example.nextgenmotors2.backend.ReservationType;
+import org.example.nextgenmotors2.backend.model.entity.Vehicle;
+import org.example.nextgenmotors2.backend.service.traditional.VehicleDatabase;
+import org.example.nextgenmotors2.backend.model.enu.ReservationType;
+import org.example.nextgenmotors2.frontend.dialog.ReservationDialog;
+import org.example.nextgenmotors2.frontend.dialog.VehicleDetailsDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -194,6 +196,28 @@ public class NextGenMotors extends JFrame {
         priceFilter.addActionListener(e -> performSearch());
 
         return mainPanel;
+    }
+
+    private void performSearchOptimized() {
+        SwingWorker<List<Vehicle>, Void> worker = new SwingWorker<>() {
+            @Override
+            protected List<Vehicle> doInBackground() {
+                String searchTerm = searchField.getText().trim();
+                String selectedPriceRange = (String) priceFilter.getSelectedItem();
+                return database.searchVehicles(searchTerm, selectedPriceRange);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Vehicle> filtered = get();
+                    loadVehicles(filtered);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
     }
 
     private JPanel createFooterPanel() {

@@ -1,4 +1,4 @@
-package org.example.nextgenmotors2.frontend;
+package org.example.nextgenmotors2.frontend.view;
 
 import javax.swing.*;
 import java.awt.*;

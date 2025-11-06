@@ -1,5 +1,7 @@
-package org.example.nextgenmotors2.backend;
+package org.example.nextgenmotors2.backend.repository;
 
+import org.example.nextgenmotors2.backend.model.enu.ReservationStatus;
+import org.example.nextgenmotors2.backend.model.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,13 +1,13 @@
-package org.example.nextgenmotors2.frontend;
+package org.example.nextgenmotors2.frontend.dialog;
 
-import org.example.nextgenmotors2.backend.Vehicle;
-import org.example.nextgenmotors2.backend.Reservation;
-import org.example.nextgenmotors2.backend.ReservationType;
+// Actualizar imports para el backend
+import org.example.nextgenmotors2.backend.model.entity.Reservation;
+import org.example.nextgenmotors2.backend.model.entity.Vehicle;
+import org.example.nextgenmotors2.backend.model.enu.ReservationType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

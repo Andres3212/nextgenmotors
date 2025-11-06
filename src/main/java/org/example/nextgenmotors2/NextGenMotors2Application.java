@@ -1,7 +1,8 @@
 package org.example.nextgenmotors2;
 
-import org.example.nextgenmotors2.frontend.NextGenMotors;
-import org.example.nextgenmotors2.frontend.SplashScreen;
+
+import org.example.nextgenmotors2.frontend.view.NextGenMotors;
+import org.example.nextgenmotors2.frontend.view.SplashScreen;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
